@@ -4,7 +4,7 @@
   "description": "Haraka plugin that logs to syslog",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "./run_tests",
     "lint": "./node_modules/.bin/eslint *.js test/*.js",
     "cover": "./node_modules/.bin/istanbul cover ./run_tests"
   },
