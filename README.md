@@ -2,10 +2,9 @@
 [![Code Coverage][cov-img]][cov-url]
 [![Code Climate][clim-img]][clim-url]
 [![NPM][npm-img]][npm-url]
+[![Greenkeeper badge](https://badges.greenkeeper.io/haraka/haraka-plugin-syslog.svg)](https://greenkeeper.io/)
 
 # haraka-plugin-syslog
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/haraka/haraka-plugin-syslog.svg)](https://greenkeeper.io/)
 
 Adds syslog support to Haraka.  Most log levels in haraka already map to valid
 levels in syslog.  Additional log levels in haraka fall under the DEBUG syslog
