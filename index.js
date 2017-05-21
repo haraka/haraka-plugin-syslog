@@ -143,7 +143,7 @@ exports.syslog = function (next, logger, log) {
   }
 
   if (plugin.always_ok) {
-    return next(constants.OK);
+    return next(constants.ok);
   }
   return next();
 };
