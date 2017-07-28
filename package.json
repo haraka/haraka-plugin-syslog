@@ -32,6 +32,6 @@
     "eslint": "*",
     "eslint-plugin-haraka": "*",
     "haraka-test-fixtures": "*",
-    "nodeunit": "https://github.com/godsflaw/nodeunit/archive/master.tar.gz"
+    "nodeunit": "*"
   }
 }

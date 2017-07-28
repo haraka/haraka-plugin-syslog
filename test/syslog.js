@@ -43,8 +43,8 @@ exports.register = {
   'should have register function' : function (test) {
     if (this.plugin) {
       test.expect(2);
-      test.isNotNull(this.plugin);
-      test.isFunction(this.plugin.register);
+      test.ok(this.plugin);
+      test.equals(typeof this.plugin.register, 'function');
     }
     test.done();
   },
@@ -69,8 +69,8 @@ exports.register = {
       this.plugin.register();
       test.expect(3);
       test.equals(this.plugin.register_hook.args[1], 'syslog');
-      test.isNotNull(this.plugin.syslog);
-      test.isFunction(this.plugin.syslog);
+      test.ok(this.plugin.syslog);
+      test.equals(typeof this.plugin.syslog, 'function');
     }
     test.done();
   },
