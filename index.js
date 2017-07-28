@@ -2,7 +2,7 @@
 
 var constants = require('haraka-constants');
 
-exports.register = function() {
+exports.register = function () {
   var plugin = this;
 
   plugin.Syslog = require('modern-syslog');

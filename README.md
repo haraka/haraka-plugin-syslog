@@ -1,8 +1,8 @@
 [![Build Status][ci-img]][ci-url]
 [![Code Coverage][cov-img]][cov-url]
 [![Code Climate][clim-img]][clim-url]
+[![Greenkeeper badge][gk-img]](https://greenkeeper.io/)
 [![NPM][npm-img]][npm-url]
-[![Greenkeeper badge](https://badges.greenkeeper.io/haraka/haraka-plugin-syslog.svg)](https://greenkeeper.io/)
 
 # haraka-plugin-syslog
 
@@ -93,3 +93,4 @@ Sane defaults are chosen for you.
 [clim-url]: https://codeclimate.com/github/haraka/haraka-plugin-syslog
 [npm-img]: https://nodei.co/npm/haraka-plugin-syslog.png
 [npm-url]: https://www.npmjs.com/package/haraka-plugin-syslog
+[gk-img]: https://badges.greenkeeper.io/haraka/haraka-plugin-syslog.svg
