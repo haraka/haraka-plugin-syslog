@@ -1,17 +1,14 @@
 'use strict';
 
 const constants = require('haraka-constants');
+const syslog    = require('modern-syslog');
 
 exports.register = function () {
   var plugin = this;
 
-  const syslog = require('modern-syslog');
-  plugin.Syslog = syslog;
-
   var options   = 0;
-  plugin.load_syslog_ini();
 
-  if (!plugin.cfg.general) plugin.cfg.general = {};
+  plugin.load_syslog_ini();
 
   var name      = plugin.cfg.general.name     || 'haraka';
   var facility  = plugin.cfg.general.facility || 'MAIL';
@@ -21,57 +18,27 @@ exports.register = function () {
     options |= syslog['LOG_' + opt.toUpperCase() ];
   })
 
-  switch (facility.toUpperCase()) {
+  if (facility !== facility.toUpperCase()) facility = facility.toUpperCase();
+
+  switch (facility) {
     case 'MAIL':
-      syslog.init(name, options, syslog.LOG_MAIL);
-      break;
     case 'KERN':
-      syslog.init(name, options, syslog.LOG_KERN);
-      break;
     case 'USER':
-      syslog.init(name, options, syslog.LOG_USER);
-      break;
     case 'DAEMON':
-      syslog.init(name, options, syslog.LOG_DAEMON);
-      break;
     case 'AUTH':
-      syslog.init(name, options, syslog.LOG_AUTH);
-      break;
     case 'SYSLOG':
-      syslog.init(name, options, syslog.LOG_SYSLOG);
-      break;
     case 'LPR':
-      syslog.init(name, options, syslog.LOG_LPR);
-      break;
     case 'NEWS':
-      syslog.init(name, options, syslog.LOG_NEWS);
-      break;
     case 'UUCP':
-      syslog.init(name, options, syslog.LOG_UUCP);
-      break;
     case 'LOCAL0':
-      syslog.init(name, options, syslog.LOG_LOCAL0);
-      break;
     case 'LOCAL1':
-      syslog.init(name, options, syslog.LOG_LOCAL1);
-      break;
     case 'LOCAL2':
-      syslog.init(name, options, syslog.LOG_LOCAL2);
-      break;
     case 'LOCAL3':
-      syslog.init(name, options, syslog.LOG_LOCAL3);
-      break;
     case 'LOCAL4':
-      syslog.init(name, options, syslog.LOG_LOCAL4);
-      break;
     case 'LOCAL5':
-      syslog.init(name, options, syslog.LOG_LOCAL5);
-      break;
     case 'LOCAL6':
-      syslog.init(name, options, syslog.LOG_LOCAL6);
-      break;
     case 'LOCAL7':
-      syslog.init(name, options, syslog.LOG_LOCAL7);
+      syslog.init(name, options, syslog[ 'LOG_' + facility ]);
       break;
     default:
       syslog.init(name, options, syslog.LOG_MAIL);
@@ -96,11 +63,12 @@ exports.load_syslog_ini = function () {
   function () {
     plugin.load_syslog_ini();
   })
+
+  if (!plugin.cfg.general) plugin.cfg.general = {};
 }
 
 exports.syslog = function (next, logger, log) {
   let plugin = this;
-  let syslog = plugin.Syslog;
 
   switch (log.level.toUpperCase()) {
     case 'INFO':
