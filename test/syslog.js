@@ -223,22 +223,22 @@ exports.hook = {
 exports.log = {
   setUp : _set_up,
   'syslog hook logs correct thing' : function (test) {
-    if (!this.plugin || !this.plugin.Syslog) { return test.done(); }
+    let plugin = this.plugin;
+    if (!plugin || !plugin.Syslog) return test.done();
 
     // local setup
     var next = stub();
-    this.backup.plugin.Syslog.log = this.plugin.Syslog.log;
-    this.plugin.Syslog.log = stub();
-    this.plugin.syslog(next, this.logger, this.log);
+    this.backup.plugin.Syslog.log = plugin.Syslog.log;
+    plugin.Syslog.log = stub();
+    plugin.syslog(next, this.logger, this.log);
 
     test.expect(3);
-    test.ok(this.plugin.Syslog.log.called);
-    test.equals(this.plugin.Syslog.log.args[0],
-      this.plugin.Syslog.LOG_INFO);
-    test.equals(this.plugin.Syslog.log.args[1], this.log.data);
+    test.ok(plugin.Syslog.log.called);
+    test.equals(plugin.Syslog.log.args[0], plugin.Syslog.LOG_INFO);
+    test.equals(plugin.Syslog.log.args[1], this.log.data);
     test.done();
 
     // local teardown
-    this.plugin.Syslog.log = this.backup.plugin.Syslog.log;
+    plugin.Syslog.log = this.backup.plugin.Syslog.log;
   }
 };
