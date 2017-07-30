@@ -1,8 +1,8 @@
 [![Build Status][ci-img]][ci-url]
-[![Code Coverage][cov-img]][cov-url]
 [![Code Climate][clim-img]][clim-url]
 [![Greenkeeper badge][gk-img]](https://greenkeeper.io/)
 [![NPM][npm-img]][npm-url]
+<!--[![Code Coverage][cov-img]][cov-url]-->
 
 # haraka-plugin-syslog
 

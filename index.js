@@ -1,6 +1,6 @@
 'use strict';
 
-var constants = require('haraka-constants');
+const constants = require('haraka-constants');
 
 exports.register = function () {
   var plugin = this;
@@ -8,46 +8,17 @@ exports.register = function () {
   plugin.Syslog = require('modern-syslog');
 
   var options   = 0;
-  var ini       = plugin.config.get('syslog.ini');
+  plugin.load_syslog_ini();
 
-  ini.general   = ini.general               || {};
-  var name      = ini.general.name       || 'haraka';
-  var facility  = ini.general.facility   || 'MAIL';
-  var pid       = ini.general.log_pid    || 1;
-  var odelay    = ini.general.log_odelay || 1;
-  var cons      = ini.general.log_cons   || 0;
-  var ndelay    = ini.general.log_ndelay || 0;
-  var nowait    = ini.general.log_nowait || 0;
-  var always_ok = ini.general.always_ok  || false;
+  if (!plugin.cfg.general) plugin.cfg.general = {};
 
-  if (always_ok && (always_ok >= 1 || always_ok.toLowerCase() === 'true')) {
-    always_ok = true;
-  }
-  else {
-    always_ok = false;
-  }
+  var name      = plugin.cfg.general.name     || 'haraka';
+  var facility  = plugin.cfg.general.facility || 'MAIL';
 
-  plugin.always_ok = always_ok;
-
-  if (pid && (pid >= 1 || pid.toLowerCase() === 'true')) {
-    options |= plugin.Syslog.LOG_PID;
-  }
-
-  if (odelay && (odelay >= 1 || odelay.toLowerCase() === 'true')) {
-    options |= plugin.Syslog.LOG_ODELAY;
-  }
-
-  if (cons && (cons >= 1 || cons.toLowerCase() === 'true')) {
-    options |= plugin.Syslog.LOG_CONS;
-  }
-
-  if (ndelay && (ndelay >= 1 || ndelay.toLowerCase() === 'true')) {
-    options |= plugin.Syslog.LOG_NDELAY;
-  }
-
-  if (nowait && (nowait >= 1 || nowait.toLowerCase() === 'true')) {
-    options |= plugin.Syslog.LOG_NOWAIT;
-  }
+  ['pid','odelay','cons','ndelay','nowait'].forEach(opt => {
+    if (!plugin.cfg.general[opt]) return;
+    options |= plugin.Syslog['LOG_' + opt.toUpperCase() ];
+  })
 
   switch (facility.toUpperCase()) {
     case 'MAIL':
@@ -108,6 +79,24 @@ exports.register = function () {
   plugin.register_hook('log', 'syslog');
 };
 
+exports.load_syslog_ini = function () {
+  let plugin = this;
+
+  plugin.cfg = plugin.config.get('syslog.ini', {
+    booleans: [
+      '+general.pid',
+      '+general.odelay',
+      '-general.cons',
+      '-general.ndelay',
+      '-general.nowait',
+      '-general.always_ok',
+    ],
+  },
+  function () {
+    plugin.load_syslog_ini();
+  })
+}
+
 exports.syslog = function (next, logger, log) {
   var plugin = this;
 
@@ -142,8 +131,9 @@ exports.syslog = function (next, logger, log) {
       plugin.Syslog.log(plugin.Syslog.LOG_DEBUG, log.data);
   }
 
-  if (plugin.always_ok) {
-    return next(constants.OK);
+  if (plugin.cfg.always_ok) {
+    next(constants.OK);
+    return;
   }
-  return next();
+  next();
 };
