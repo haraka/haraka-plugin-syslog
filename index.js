@@ -98,37 +98,38 @@ exports.load_syslog_ini = function () {
 }
 
 exports.syslog = function (next, logger, log) {
-  var plugin = this;
+  let plugin = this;
+  let syslog = plugin.Syslog;
 
   switch (log.level.toUpperCase()) {
     case 'INFO':
-      plugin.Syslog.log(plugin.Syslog.LOG_INFO, log.data);
+      Syslog.log(Syslog.LOG_INFO, log.data);
       break;
     case 'NOTICE':
-      plugin.Syslog.log(plugin.Syslog.LOG_NOTICE, log.data);
+      Syslog.log(Syslog.LOG_NOTICE, log.data);
       break;
     case 'WARN':
-      plugin.Syslog.log(plugin.Syslog.LOG_WARNING, log.data);
+      Syslog.log(Syslog.LOG_WARNING, log.data);
       break;
     case 'ERROR':
-      plugin.Syslog.log(plugin.Syslog.LOG_ERR, log.data);
+      Syslog.log(Syslog.LOG_ERR, log.data);
       break;
     case 'CRIT':
-      plugin.Syslog.log(plugin.Syslog.LOG_CRIT, log.data);
+      Syslog.log(Syslog.LOG_CRIT, log.data);
       break;
     case 'ALERT':
-      plugin.Syslog.log(plugin.Syslog.LOG_ALERT, log.data);
+      Syslog.log(Syslog.LOG_ALERT, log.data);
       break;
     case 'EMERG':
-      plugin.Syslog.log(plugin.Syslog.LOG_EMERG, log.data);
+      Syslog.log(Syslog.LOG_EMERG, log.data);
       break;
     case 'DATA':
     case 'PROTOCOL':
     case 'DEBUG':
-      plugin.Syslog.log(plugin.Syslog.LOG_DEBUG, log.data);
+      Syslog.log(Syslog.LOG_DEBUG, log.data);
       break;
     default:
-      plugin.Syslog.log(plugin.Syslog.LOG_DEBUG, log.data);
+      Syslog.log(Syslog.LOG_DEBUG, log.data);
   }
 
   if (plugin.cfg.always_ok) {
