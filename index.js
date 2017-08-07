@@ -101,7 +101,7 @@ exports.syslog = function (next, logger, log) {
       syslog.log(syslog.LOG_DEBUG, log.data);
   }
 
-  if (plugin.cfg.always_ok) {
+  if (plugin.cfg.general.always_ok) {
     next(constants.OK);
     return;
   }

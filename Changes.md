@@ -1,3 +1,8 @@
+
+## 1.0.3 - 2017-08-06
+
+- corrected config path to always_ok setting
+
 ## 1.0.2 - 2017-07-30
 
 - declare booleans in config.get

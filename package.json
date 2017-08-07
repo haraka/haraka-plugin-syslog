@@ -1,6 +1,6 @@
 {
   "name": "haraka-plugin-syslog",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Haraka plugin that logs to syslog",
   "main": "index.js",
   "scripts": {
