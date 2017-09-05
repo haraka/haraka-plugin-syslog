@@ -1,4 +1,8 @@
 
+## 1.0.4 - 2017-__-__
+
+- drop node 4.x testing.
+
 ## 1.0.3 - 2017-08-06
 
 - corrected config path to always_ok setting
