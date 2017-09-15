@@ -1,11 +1,11 @@
 'use strict';
 
-var fixtures     = require('haraka-test-fixtures');
-var constants    = require('haraka-constants');
+const fixtures     = require('haraka-test-fixtures');
+const constants    = require('haraka-constants');
 
-var stub         = fixtures.stub.stub;
+const stub         = fixtures.stub.stub;
 
-var _set_up = function (done) {
+const _set_up = function (done) {
   this.backup = { plugin: { Syslog: {} } };
 
   this.plugin = new fixtures.plugin('syslog');
@@ -121,7 +121,7 @@ exports.hook = {
   'returns just next() by default (missing always_ok)' : function (test) {
     if (!this.plugin || !this.plugin.Syslog) { return test.done(); }
 
-    var next = function (action) {
+    const next = function (action) {
       test.expect(1);
       test.isUndefined(action);
       test.done();
@@ -137,7 +137,7 @@ exports.hook = {
 
     this.plugin.register();
 
-    var next = function (action) {
+    const next = function (action) {
       test.expect(1);
       test.isUndefined(action);
       test.done();
@@ -153,7 +153,7 @@ exports.hook = {
     this.configfile.general.always_ok = 'true';
     this.plugin.register();
 
-    var next = function (action) {
+    const next = function (action) {
       test.expect(1);
       test.equals(action, constants.OK);
       test.done();
@@ -172,7 +172,7 @@ exports.hook = {
     this.configfile.general.always_ok = 0;
     this.plugin.register();
 
-    var next = function (action) {
+    const next = function (action) {
       test.expect(1);
       test.isUndefined(action);
       test.done();
@@ -188,7 +188,7 @@ exports.hook = {
     this.configfile.general.always_ok = 1;
     this.plugin.register();
 
-    var next = function (action) {
+    const next = function (action) {
       test.expect(1);
       test.equals(action, constants.OK);
       test.done();
@@ -207,7 +207,7 @@ exports.hook = {
     this.configfile.general.always_ok = 'random';
     this.plugin.register();
 
-    var next = function (action) {
+    const next = function (action) {
       test.expect(1);
       test.isUndefined(action);
       test.done();
@@ -223,11 +223,11 @@ exports.hook = {
 exports.log = {
   setUp : _set_up,
   'syslog hook logs correct thing' : function (test) {
-    let plugin = this.plugin;
+    const plugin = this.plugin;
     if (!plugin || !plugin.Syslog) return test.done();
 
     // local setup
-    var next = stub();
+    const next = stub();
     this.backup.plugin.Syslog.log = plugin.Syslog.log;
     plugin.Syslog.log = stub();
     plugin.syslog(next, this.logger, this.log);
