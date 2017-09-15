@@ -4,13 +4,13 @@ const constants = require('haraka-constants');
 const syslog    = require('modern-syslog');
 
 exports.register = function () {
-  let plugin = this;
+  const plugin = this;
 
   let options = 0;
 
   plugin.load_syslog_ini();
 
-  let name      = plugin.cfg.general.name     || 'haraka';
+  const name      = plugin.cfg.general.name     || 'haraka';
   let facility  = plugin.cfg.general.facility || 'MAIL';
 
   ['pid','odelay','cons','ndelay','nowait'].forEach(opt => {
@@ -48,7 +48,7 @@ exports.register = function () {
 };
 
 exports.load_syslog_ini = function () {
-  let plugin = this;
+  const plugin = this;
 
   plugin.cfg = plugin.config.get('syslog.ini', {
     booleans: [
@@ -68,7 +68,7 @@ exports.load_syslog_ini = function () {
 }
 
 exports.syslog = function (next, logger, log) {
-  let plugin = this;
+  const plugin = this;
 
   switch (log.level.toUpperCase()) {
     case 'INFO':
