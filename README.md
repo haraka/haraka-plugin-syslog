@@ -1,6 +1,6 @@
 [![Build Status][ci-img]][ci-url]
 [![Code Climate][clim-img]][clim-url]
-[![Greenkeeper badge][gk-img]](https://greenkeeper.io/)
+
 [![NPM][npm-img]][npm-url]
 <!--[![Code Coverage][cov-img]][cov-url]-->
 
