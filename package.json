@@ -1,13 +1,12 @@
 {
   "name": "haraka-plugin-syslog",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Haraka plugin that logs to syslog",
   "main": "index.js",
   "scripts": {
-    "test": "node run_tests",
-    "lint": "node node_modules/.bin/eslint *.js test/*.js",
-    "lintfix": "node node_modules/.bin/eslint --fix *.js test/*.js",
-    "cover": "node node_modules/.bin/istanbul cover ./run_tests"
+    "test": "npx mocha",
+    "lint": "npx eslint *.js test",
+    "lintfix": "npx eslint --fix *.js test"
   },
   "repository": {
     "type": "git",
@@ -19,7 +18,7 @@
     "syslog",
     "log"
   ],
-  "author": "Haraka Team <harakamail@gmail.com>",
+  "author": "Haraka Team <haraka.mail@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/haraka/haraka-plugin-syslog/issues"
@@ -30,9 +29,9 @@
     "modern-syslog": "^1.1.4"
   },
   "devDependencies": {
-    "eslint": "*",
+    "eslint": ">=8",
     "eslint-plugin-haraka": "*",
     "haraka-test-fixtures": "*",
-    "nodeunit": "*"
+    "mocha": ">=9"
   }
 }

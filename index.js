@@ -10,7 +10,7 @@ exports.register = function () {
 
   plugin.load_syslog_ini();
 
-  const name      = plugin.cfg.general.name     || 'haraka';
+  const name    = plugin.cfg.general.name     || 'haraka';
   let facility  = plugin.cfg.general.facility || 'MAIL';
 
   ['pid','odelay','cons','ndelay','nowait'].forEach(opt => {

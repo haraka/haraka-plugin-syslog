@@ -7,9 +7,9 @@ engines:
       - javascript
   eslint:
     enabled: true
-    channel: "eslint-3"
+    channel: "eslint-8"
     config:
-      config: ".eslintrc.json"
+      config: ".eslintrc.yaml"
   fixme:
     enabled: true
     checks:
@@ -17,6 +17,7 @@ engines:
         enabled: false
       TODO:
         enabled: false
+
 ratings:
   paths:
   - "**.js"

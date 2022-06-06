@@ -2,7 +2,6 @@
 [![Code Climate][clim-img]][clim-url]
 
 [![NPM][npm-img]][npm-url]
-<!--[![Code Coverage][cov-img]][cov-url]-->
 
 # haraka-plugin-syslog
 
@@ -87,10 +86,7 @@ Sane defaults are chosen for you.
 
 [ci-img]: https://travis-ci.org/haraka/haraka-plugin-syslog.svg
 [ci-url]: https://travis-ci.org/haraka/haraka-plugin-syslog
-[cov-img]: https://codecov.io/github/haraka/haraka-plugin-syslog/coverage.svg
-[cov-url]: https://codecov.io/github/haraka/haraka-plugin-syslog
 [clim-img]: https://codeclimate.com/github/haraka/haraka-plugin-syslog/badges/gpa.svg
 [clim-url]: https://codeclimate.com/github/haraka/haraka-plugin-syslog
 [npm-img]: https://nodei.co/npm/haraka-plugin-syslog.png
 [npm-url]: https://www.npmjs.com/package/haraka-plugin-syslog
-[gk-img]: https://badges.greenkeeper.io/haraka/haraka-plugin-syslog.svg
