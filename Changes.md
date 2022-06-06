@@ -5,10 +5,10 @@
 
 - ci: replace appveyor & travis with GitHub actions
 - ci: add GHA shared workflows
-- 
+- test: replace nodeunit with mocha
 
 
-### 1.0.4 - 2017-__-__
+### [1.0.4] - 2017-09-05
 
 - drop node 4.x testing.
 
@@ -34,6 +34,7 @@
 ### 1.0.0 - 2016-11-09
 
 - import from haraka/Haraka
+
 
 [1.0.4]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/1.0.4
 [1.0.5]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/1.0.5
