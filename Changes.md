@@ -5,6 +5,7 @@
 
 - ci: replace appveyor & travis with GitHub actions
 - ci: add GHA shared workflows
+- lint: prefer-template
 - test: replace nodeunit with mocha
 
 

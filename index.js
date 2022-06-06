@@ -15,7 +15,7 @@ exports.register = function () {
 
   ['pid','odelay','cons','ndelay','nowait'].forEach(opt => {
     if (!plugin.cfg.general[opt]) return;
-    options |= syslog['LOG_' + opt.toUpperCase() ];
+    options |= syslog[`LOG_${  opt.toUpperCase()}` ];
   })
 
   if (facility !== facility.toUpperCase()) facility = facility.toUpperCase();
@@ -38,7 +38,7 @@ exports.register = function () {
     case 'LOCAL5':
     case 'LOCAL6':
     case 'LOCAL7':
-      syslog.init(name, options, syslog[ 'LOG_' + facility ]);
+      syslog.init(name, options, syslog[ `LOG_${  facility}` ]);
       break;
     default:
       syslog.init(name, options, syslog.LOG_MAIL);
