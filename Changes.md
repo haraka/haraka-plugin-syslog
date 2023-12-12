@@ -1,6 +1,11 @@
 ### Unreleased
 
 
+### [1.0.6] - 2023-12-12
+
+- ci(publish): only when package.json modified 
+
+
 ### [1.0.5] - 2022-06-05
 
 - ci: replace appveyor & travis with GitHub actions
@@ -39,3 +44,4 @@
 
 [1.0.4]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/1.0.4
 [1.0.5]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/1.0.5
+[1.0.6]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/1.0.6
