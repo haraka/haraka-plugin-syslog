@@ -34,11 +34,11 @@
   },
   "homepage": "https://github.com/haraka/haraka-plugin-syslog#readme",
   "dependencies": {
-    "haraka-constants": "^1.0.0",
-    "modern-syslog": "^1.1.4"
+    "haraka-constants": "^1.0.7",
+    "modern-syslog": "^1.2.0"
   },
   "devDependencies": {
-    "haraka-test-fixtures": "^1.0.0",
+    "haraka-test-fixtures": "^1.3.8",
     "@haraka/eslint-config": "^2.0.2"
   },
   "prettier": {
