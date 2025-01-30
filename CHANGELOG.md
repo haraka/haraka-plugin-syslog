@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### [1.0.7] - 2025-01-30
 
+- deps: bump versions to latest
 - dep(eslint): upgraded to v9
 - doc: mv Changes.md -> CHANGELOG.md
 
