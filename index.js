@@ -1,24 +1,24 @@
-'use strict';
+'use strict'
 
-const constants = require('haraka-constants');
-const syslog    = require('modern-syslog');
+const constants = require('haraka-constants')
+const syslog = require('modern-syslog')
 
 exports.register = function () {
-  const plugin = this;
+  const plugin = this
 
-  let options = 0;
+  let options = 0
 
-  plugin.load_syslog_ini();
+  plugin.load_syslog_ini()
 
-  const name    = plugin.cfg.general.name     || 'haraka';
-  let facility  = plugin.cfg.general.facility || 'MAIL';
+  const name = plugin.cfg.general.name || 'haraka'
+  let facility = plugin.cfg.general.facility || 'MAIL'
 
-  ['pid','odelay','cons','ndelay','nowait'].forEach(opt => {
-    if (!plugin.cfg.general[opt]) return;
-    options |= syslog[`LOG_${  opt.toUpperCase()}` ];
+  ;['pid', 'odelay', 'cons', 'ndelay', 'nowait'].forEach((opt) => {
+    if (!plugin.cfg.general[opt]) return
+    options |= syslog[`LOG_${opt.toUpperCase()}`]
   })
 
-  if (facility !== facility.toUpperCase()) facility = facility.toUpperCase();
+  if (facility !== facility.toUpperCase()) facility = facility.toUpperCase()
 
   switch (facility) {
     case 'MAIL':
@@ -38,72 +38,75 @@ exports.register = function () {
     case 'LOCAL5':
     case 'LOCAL6':
     case 'LOCAL7':
-      syslog.init(name, options, syslog[ `LOG_${  facility}` ]);
-      break;
+      syslog.init(name, options, syslog[`LOG_${facility}`])
+      break
     default:
-      syslog.init(name, options, syslog.LOG_MAIL);
+      syslog.init(name, options, syslog.LOG_MAIL)
   }
 
-  plugin.register_hook('log', 'syslog');
-};
+  plugin.register_hook('log', 'syslog')
+}
 
 exports.load_syslog_ini = function () {
-  const plugin = this;
+  const plugin = this
 
-  plugin.cfg = plugin.config.get('syslog.ini', {
-    booleans: [
-      '+general.pid',
-      '+general.odelay',
-      '-general.cons',
-      '-general.ndelay',
-      '-general.nowait',
-      '-general.always_ok',
-    ],
-  },
-  function () {
-    plugin.load_syslog_ini();
-  })
+  plugin.cfg = plugin.config.get(
+    'syslog.ini',
+    {
+      booleans: [
+        '+general.pid',
+        '+general.odelay',
+        '-general.cons',
+        '-general.ndelay',
+        '-general.nowait',
+        '-general.always_ok',
+      ],
+    },
+    function () {
+      plugin.load_syslog_ini()
+    },
+  )
 
-  if (!plugin.cfg.general) plugin.cfg.general = {};
+  if (!plugin.cfg.general) plugin.cfg.general = {}
 }
 
 exports.syslog = function (next, logger, log) {
-  const plugin = this;
+  const plugin = this
 
   switch (log.level.toUpperCase()) {
     case 'INFO':
-      syslog.log(syslog.LOG_INFO, log.data);
-      break;
+      syslog.log(syslog.LOG_INFO, log.data)
+      break
     case 'NOTICE':
-      syslog.log(syslog.LOG_NOTICE, log.data);
-      break;
+      syslog.log(syslog.LOG_NOTICE, log.data)
+      break
     case 'WARN':
-      syslog.log(syslog.LOG_WARNING, log.data);
-      break;
+      syslog.log(syslog.LOG_WARNING, log.data)
+      break
     case 'ERROR':
-      syslog.log(syslog.LOG_ERR, log.data);
-      break;
+      syslog.log(syslog.LOG_ERR, log.data)
+      break
     case 'CRIT':
-      syslog.log(syslog.LOG_CRIT, log.data);
-      break;
+      syslog.log(syslog.LOG_CRIT, log.data)
+      break
     case 'ALERT':
-      syslog.log(syslog.LOG_ALERT, log.data);
-      break;
+      syslog.log(syslog.LOG_ALERT, log.data)
+      break
     case 'EMERG':
-      syslog.log(syslog.LOG_EMERG, log.data);
-      break;
+      syslog.log(syslog.LOG_EMERG, log.data)
+      break
     case 'DATA':
     case 'PROTOCOL':
     case 'DEBUG':
-      syslog.log(syslog.LOG_DEBUG, log.data);
-      break;
+      syslog.log(syslog.LOG_DEBUG, log.data)
+      break
     default:
-      syslog.log(syslog.LOG_DEBUG, log.data);
+      syslog.log(syslog.LOG_DEBUG, log.data)
   }
 
   if (plugin.cfg.general.always_ok) {
-    next(constants.OK);
-    return;
+    next(constants.OK)
+    return
   }
-  next();
-};
+  next()
+}
