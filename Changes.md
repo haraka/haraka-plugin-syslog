@@ -1,6 +1,22 @@
 ### Unreleased
 
 
+### [1.0.7] - 2025-01-30
+
+#### Added
+
+- 
+
+#### Fixed
+
+- 
+
+#### Changed
+
+- 
+
+
+
 ### [1.0.6] - 2023-12-12
 
 - ci(publish): only when package.json modified 
@@ -45,3 +61,4 @@
 [1.0.4]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/1.0.4
 [1.0.5]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/1.0.5
 [1.0.6]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/1.0.6
+[1.0.7]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/1.0.7
