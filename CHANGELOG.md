@@ -4,15 +4,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Unreleased
 
-
 ### [1.0.7] - 2025-01-30
 
-- 
-
+- dep(eslint): upgraded to v9
+- doc: mv Changes.md -> CHANGELOG.md
 
 ### [1.0.6] - 2023-12-12
 
-- ci(publish): only when package.json modified 
+- ci(publish): only when package.json modified
 
 ### [1.0.5] - 2022-06-05
 
@@ -43,7 +42,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### 1.0.0 - 2016-11-09
 
 - import from haraka/Haraka
-
 
 [1.0.3]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.0.3
 [1.0.4]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.0.4
