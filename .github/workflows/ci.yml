@@ -21,7 +21,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: ${{ fromJson(needs.get-lts.outputs.active) }}
+        node-version: ${{ fromJson(needs.get-lts.outputs.lts) }}
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
