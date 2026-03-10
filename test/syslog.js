@@ -7,7 +7,7 @@ const constants = require('haraka-constants')
 
 const stub = fixtures.stub.stub
 
-const _set_up = function (done) {
+const _set_up = function () {
   this.backup = { plugin: { Syslog: {} } }
 
   this.plugin = new fixtures.plugin('syslog')
@@ -37,47 +37,42 @@ const _set_up = function (done) {
     }.bind(this)
   }
 
-  done()
 }
 
 describe('register', function () {
   beforeEach(_set_up)
 
-  it('should have register function', function (done) {
+  it('should have register function', function () {
     if (this.plugin) {
       assert.ok(this.plugin)
       assert.equal(typeof this.plugin.register, 'function')
     }
-    done()
   })
 
-  it('register function should call register_hook()', function (done) {
+  it('register function should call register_hook()', function () {
     if (this.plugin && this.plugin.Syslog) {
       this.plugin.register()
       assert.ok(this.plugin.register_hook.called)
     }
-    done()
   })
 
-  it('register_hook() should register for proper hook', function (done) {
+  it('register_hook() should register for proper hook', function () {
     if (this.plugin && this.plugin.Syslog) {
       this.plugin.register()
       assert.equal(this.plugin.register_hook.args[0], 'log')
     }
-    done()
   })
 
-  it('register_hook() should register available function', function (done) {
+  it('register_hook() should register available function', function () {
     if (this.plugin && this.plugin.Syslog) {
       this.plugin.register()
       assert.equal(this.plugin.register_hook.args[1], 'syslog')
       assert.ok(this.plugin.syslog)
       assert.equal(typeof this.plugin.syslog, 'function')
     }
-    done()
   })
 
-  it('register calls Syslog.init()', function (done) {
+  it('register calls Syslog.init()', function () {
     // local setup
     if (this.plugin && this.plugin.Syslog) {
       this.backup.plugin.Syslog.init = this.plugin.Syslog.init
@@ -86,7 +81,6 @@ describe('register', function () {
 
       assert.ok(this.plugin.Syslog.init.called)
     }
-    done()
 
     // local teardown
     if (this.plugin && this.plugin.Syslog) {
@@ -94,7 +88,7 @@ describe('register', function () {
     }
   })
 
-  it('register calls Syslog.init() with correct args', function (done) {
+  it('register calls Syslog.init() with correct args', function () {
     // local setup
     if (this.plugin && this.plugin.Syslog) {
       this.backup.plugin.Syslog.init = this.plugin.Syslog.init
@@ -112,7 +106,6 @@ describe('register', function () {
       )
       assert.equal(this.plugin.Syslog.init.args[2], this.plugin.Syslog.LOG_MAIL)
     }
-    done()
 
     // local teardown
     if (this.plugin && this.plugin.Syslog) {
