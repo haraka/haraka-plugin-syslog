@@ -1,13 +1,13 @@
 'use strict'
 
-const assert = require('assert')
+const assert = require('node:assert')
 
 const fixtures = require('haraka-test-fixtures')
 const constants = require('haraka-constants')
 
 const stub = fixtures.stub.stub
 
-const _set_up = function (done) {
+const _set_up = function () {
   this.backup = { plugin: { Syslog: {} } }
 
   this.plugin = new fixtures.plugin('syslog')
@@ -37,47 +37,42 @@ const _set_up = function (done) {
     }.bind(this)
   }
 
-  done()
 }
 
 describe('register', function () {
   beforeEach(_set_up)
 
-  it('should have register function', function (done) {
+  it('should have register function', function () {
     if (this.plugin) {
       assert.ok(this.plugin)
       assert.equal(typeof this.plugin.register, 'function')
     }
-    done()
   })
 
-  it('register function should call register_hook()', function (done) {
+  it('register function should call register_hook()', function () {
     if (this.plugin && this.plugin.Syslog) {
       this.plugin.register()
       assert.ok(this.plugin.register_hook.called)
     }
-    done()
   })
 
-  it('register_hook() should register for proper hook', function (done) {
+  it('register_hook() should register for proper hook', function () {
     if (this.plugin && this.plugin.Syslog) {
       this.plugin.register()
       assert.equal(this.plugin.register_hook.args[0], 'log')
     }
-    done()
   })
 
-  it('register_hook() should register available function', function (done) {
+  it('register_hook() should register available function', function () {
     if (this.plugin && this.plugin.Syslog) {
       this.plugin.register()
       assert.equal(this.plugin.register_hook.args[1], 'syslog')
       assert.ok(this.plugin.syslog)
       assert.equal(typeof this.plugin.syslog, 'function')
     }
-    done()
   })
 
-  it('register calls Syslog.init()', function (done) {
+  it('register calls Syslog.init()', function () {
     // local setup
     if (this.plugin && this.plugin.Syslog) {
       this.backup.plugin.Syslog.init = this.plugin.Syslog.init
@@ -86,7 +81,6 @@ describe('register', function () {
 
       assert.ok(this.plugin.Syslog.init.called)
     }
-    done()
 
     // local teardown
     if (this.plugin && this.plugin.Syslog) {
@@ -94,7 +88,7 @@ describe('register', function () {
     }
   })
 
-  it('register calls Syslog.init() with correct args', function (done) {
+  it('register calls Syslog.init() with correct args', function () {
     // local setup
     if (this.plugin && this.plugin.Syslog) {
       this.backup.plugin.Syslog.init = this.plugin.Syslog.init
@@ -112,7 +106,6 @@ describe('register', function () {
       )
       assert.equal(this.plugin.Syslog.init.args[2], this.plugin.Syslog.LOG_MAIL)
     }
-    done()
 
     // local teardown
     if (this.plugin && this.plugin.Syslog) {
@@ -124,25 +117,24 @@ describe('register', function () {
 describe('hook', function () {
   beforeEach(_set_up)
 
-  it('returns just next() by default (missing always_ok)', function (done) {
+  it('returns just next() by default (missing always_ok)', function () {
     if (!this.plugin || !this.plugin.Syslog) {
-      return done()
+      return
     }
 
     const next = function (action) {
       test.isUndefined(action)
-      done()
     }
 
     this.plugin.syslog(next, this.logger, this.log)
   })
 
-  it('returns just next() if always_ok is false', function (done) {
+  it('returns just next() if always_ok is false', function () {
     // local setup
     this.backup.configfile = this.configfile
     this.configfile.general.always_ok = 'false'
     if (!this.plugin || !this.plugin.Syslog) {
-      return done()
+      return
     }
 
     this.plugin.register()
@@ -150,16 +142,15 @@ describe('hook', function () {
     this.plugin.syslog(
       function (action) {
         test.isUndefined(action)
-        done()
       },
       this.logger,
       this.log,
     )
   })
 
-  it('returns next(OK) if always_ok is true', function (done) {
+  it('returns next(OK) if always_ok is true', function () {
     if (!this.plugin || !this.plugin.Syslog) {
-      return done()
+      return
     }
 
     // local setup
@@ -170,7 +161,6 @@ describe('hook', function () {
     this.plugin.syslog(
       function (action) {
         assert.equal(action, constants.OK)
-        done()
       },
       this.logger,
       this.log,
@@ -180,9 +170,9 @@ describe('hook', function () {
     this.configfile = this.backup.configfile
   })
 
-  it('returns just next() if always_ok is 0', function (done) {
+  it('returns just next() if always_ok is 0', function () {
     if (!this.plugin || !this.plugin.Syslog) {
-      return done()
+      return
     }
 
     // local setup
@@ -193,16 +183,15 @@ describe('hook', function () {
     this.plugin.syslog(
       function (action) {
         test.isUndefined(action)
-        done()
       },
       this.logger,
       this.log,
     )
   })
 
-  it('returns next(OK) if always_ok is 1', function (done) {
+  it('returns next(OK) if always_ok is 1', function () {
     if (!this.plugin || !this.plugin.Syslog) {
-      return done()
+      return
     }
 
     // local setup
@@ -213,7 +202,6 @@ describe('hook', function () {
     this.plugin.syslog(
       function (action) {
         assert.equal(action, constants.OK)
-        done()
       },
       this.logger,
       this.log,
@@ -223,9 +211,9 @@ describe('hook', function () {
     this.configfile = this.backup.configfile
   })
 
-  it('returns next() if always_ok is random', function (done) {
+  it('returns next() if always_ok is random', function () {
     if (!this.plugin || !this.plugin.Syslog) {
-      return done()
+      return
     }
 
     // local setup
@@ -236,7 +224,6 @@ describe('hook', function () {
     this.plugin.syslog(
       function (action) {
         test.isUndefined(action)
-        done()
       },
       this.logger,
       this.log,
@@ -250,9 +237,9 @@ describe('hook', function () {
 describe('log', function () {
   beforeEach(_set_up)
 
-  it('syslog hook logs correct thing', function (done) {
+  it('syslog hook logs correct thing', function () {
     const plugin = this.plugin
-    if (!plugin || !plugin.Syslog) return done()
+    if (!plugin || !plugin.Syslog) return
 
     // local setup
     const next = stub()
@@ -263,7 +250,6 @@ describe('log', function () {
     assert.ok(plugin.Syslog.log.called)
     assert.equal(plugin.Syslog.log.args[0], plugin.Syslog.LOG_INFO)
     assert.equal(plugin.Syslog.log.args[1], this.log.data)
-    done()
 
     // local teardown
     plugin.Syslog.log = this.backup.plugin.Syslog.log
