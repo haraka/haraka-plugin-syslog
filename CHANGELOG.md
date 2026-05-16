@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Unreleased
 
+### [1.1.0] - 2026-05-15
+
+- dep(nan): added, permits modern-syslog to compile
+- test: runner is now node:test
+- test: remove unnecessary done callbacks #29
+
 ### [1.0.7] - 2025-01-30
 
 - style(prettier)
@@ -50,4 +56,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 [1.0.4]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.0.4
 [1.0.5]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/1.0.5
 [1.0.6]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.0.6
-[1.0.7]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/1.0.7
+[1.0.7]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.0.7
+[1.1.0]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.1.0
