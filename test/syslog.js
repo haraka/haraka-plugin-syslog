@@ -121,7 +121,11 @@ describe('init_syslog (hot reload)', () => {
 
   it('register() does not double-init from the nested load_syslog_ini call', () => {
     makePlugin({ name: 'haraka', facility: 'MAIL' }).register()
-    assert.equal(calls.init.length, 1, 'init() must run exactly once on register()')
+    assert.equal(
+      calls.init.length,
+      1,
+      'init() must run exactly once on register()',
+    )
   })
 })
 
@@ -187,7 +191,11 @@ describe('syslog hook', () => {
   it('strips control characters from log.data (syslog injection)', () => {
     const plugin = makePlugin({ name: 'haraka', facility: 'MAIL' })
     plugin.register()
-    plugin.syslog(() => {}, {}, mkLog('INFO', 'safe\nattacker\rline\x00\x07end'))
+    plugin.syslog(
+      () => {},
+      {},
+      mkLog('INFO', 'safe\nattacker\rline\x00\x07end'),
+    )
     assert.deepEqual(calls.log.at(-1), [L.LOG_INFO, 'safe attacker line  end'])
   })
 
