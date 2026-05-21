@@ -3,54 +3,30 @@
 const constants = require('haraka-constants')
 const syslog = require('modern-syslog')
 
+// Strip C0 controls (except TAB) and DEL so attacker-controlled SMTP
+// input can't inject newlines or NULs into syslog records (RFC 5424).
+const sanitize = (msg) =>
+  // eslint-disable-next-line no-control-regex
+  String(msg ?? '').replace(/[\x00-\x08\x0A-\x1F\x7F]/g, ' ')
+
 exports.register = function () {
-  const plugin = this
+  this.load_syslog_ini()
+  this.init_syslog()
+  this.register_hook('log', 'syslog')
+}
 
+exports.init_syslog = function () {
   let options = 0
-
-  plugin.load_syslog_ini()
-
-  const name = plugin.cfg.general.name || 'haraka'
-  let facility = plugin.cfg.general.facility || 'MAIL'
-
-  ;['pid', 'odelay', 'cons', 'ndelay', 'nowait'].forEach((opt) => {
-    if (!plugin.cfg.general[opt]) return
-    options |= syslog[`LOG_${opt.toUpperCase()}`]
-  })
-
-  if (facility !== facility.toUpperCase()) facility = facility.toUpperCase()
-
-  switch (facility) {
-    case 'MAIL':
-    case 'KERN':
-    case 'USER':
-    case 'DAEMON':
-    case 'AUTH':
-    case 'SYSLOG':
-    case 'LPR':
-    case 'NEWS':
-    case 'UUCP':
-    case 'LOCAL0':
-    case 'LOCAL1':
-    case 'LOCAL2':
-    case 'LOCAL3':
-    case 'LOCAL4':
-    case 'LOCAL5':
-    case 'LOCAL6':
-    case 'LOCAL7':
-      syslog.init(name, options, syslog[`LOG_${facility}`])
-      break
-    default:
-      syslog.init(name, options, syslog.LOG_MAIL)
+  for (const opt of ['pid', 'odelay', 'cons', 'ndelay', 'nowait']) {
+    if (this.cfg.general[opt]) options |= syslog[`LOG_${opt.toUpperCase()}`]
   }
-
-  plugin.register_hook('log', 'syslog')
+  const name = this.cfg.general.name || 'haraka'
+  const facility = this.cfg.general.facility?.toUpperCase() || 'MAIL'
+  syslog.init(name, options, syslog[`LOG_${facility}`] ?? syslog.LOG_MAIL)
 }
 
 exports.load_syslog_ini = function () {
-  const plugin = this
-
-  plugin.cfg = plugin.config.get(
+  this.cfg = this.config.get(
     'syslog.ini',
     {
       booleans: [
@@ -62,49 +38,50 @@ exports.load_syslog_ini = function () {
         '-general.always_ok',
       ],
     },
-    function () {
-      plugin.load_syslog_ini()
+    () => {
+      this.load_syslog_ini()
+      // skip on the initial call from register()
+      if (this.hooks?.log) this.init_syslog()
     },
   )
 
-  if (!plugin.cfg.general) plugin.cfg.general = {}
+  if (!this.cfg.general) this.cfg.general = {}
 }
 
 exports.syslog = function (next, logger, log) {
-  const plugin = this
-
+  const data = sanitize(log.data)
   switch (log.level.toUpperCase()) {
     case 'INFO':
-      syslog.log(syslog.LOG_INFO, log.data)
+      syslog.log(syslog.LOG_INFO, data)
       break
     case 'NOTICE':
-      syslog.log(syslog.LOG_NOTICE, log.data)
+      syslog.log(syslog.LOG_NOTICE, data)
       break
     case 'WARN':
-      syslog.log(syslog.LOG_WARNING, log.data)
+      syslog.log(syslog.LOG_WARNING, data)
       break
     case 'ERROR':
-      syslog.log(syslog.LOG_ERR, log.data)
+      syslog.log(syslog.LOG_ERR, data)
       break
     case 'CRIT':
-      syslog.log(syslog.LOG_CRIT, log.data)
+      syslog.log(syslog.LOG_CRIT, data)
       break
     case 'ALERT':
-      syslog.log(syslog.LOG_ALERT, log.data)
+      syslog.log(syslog.LOG_ALERT, data)
       break
     case 'EMERG':
-      syslog.log(syslog.LOG_EMERG, log.data)
+      syslog.log(syslog.LOG_EMERG, data)
       break
     case 'DATA':
     case 'PROTOCOL':
     case 'DEBUG':
-      syslog.log(syslog.LOG_DEBUG, log.data)
+      syslog.log(syslog.LOG_DEBUG, data)
       break
     default:
-      syslog.log(syslog.LOG_DEBUG, log.data)
+      syslog.log(syslog.LOG_DEBUG, data)
   }
 
-  if (plugin.cfg.general.always_ok) {
+  if (this.cfg.general.always_ok) {
     next(constants.OK)
     return
   }
