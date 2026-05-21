@@ -4,6 +4,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Unreleased
 
+### [1.1.1] - 2026-05-20
+
+- fix: sanitize log entries to prevent log injection
+- fix: init syslog anew after syslog.ini change
+
 ### [1.1.0] - 2026-05-15
 
 - dep(nan): added, permits modern-syslog to compile
@@ -58,3 +63,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 [1.0.6]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.0.6
 [1.0.7]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.0.7
 [1.1.0]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.1.0
+[1.1.1]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.1.1
