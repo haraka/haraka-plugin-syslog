@@ -4,6 +4,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Unreleased
 
+- test: refactored against test-fixtures 1.7.0
+
 ### [1.1.1] - 2026-05-20
 
 - fix: sanitize log entries to prevent log injection
