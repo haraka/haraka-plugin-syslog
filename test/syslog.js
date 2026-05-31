@@ -4,7 +4,7 @@ const assert = require('node:assert/strict')
 const path = require('node:path')
 const { describe, it, beforeEach } = require('node:test')
 
-const fixtures = require('haraka-test-fixtures')
+const { makePlugin: makeFixturePlugin } = require('haraka-test-fixtures')
 const constants = require('haraka-constants')
 
 // modern-syslog is a native addon that talks to the system logger. Replace it
@@ -34,7 +34,7 @@ const L = real // shorthand for the genuine LOG_* constants
 // Build a plugin whose syslog.ini resolves to `general`. Passing no argument
 // exercises the real config/syslog.ini shipped with the plugin.
 const makePlugin = (general) => {
-  const plugin = new fixtures.plugin('syslog')
+  const plugin = makeFixturePlugin('syslog', { register: false })
   if (general) plugin.config.get = () => ({ general })
   return plugin
 }
@@ -131,14 +131,14 @@ describe('init_syslog (hot reload)', () => {
 
 describe('load_syslog_ini', () => {
   it('always leaves cfg.general defined', () => {
-    const plugin = new fixtures.plugin('syslog')
+    const plugin = makeFixturePlugin('syslog', { register: false })
     plugin.config.get = () => ({})
     plugin.load_syslog_ini()
     assert.deepEqual(plugin.cfg.general, {})
   })
 
   it('reads the shipped defaults', () => {
-    const plugin = new fixtures.plugin('syslog')
+    const plugin = makeFixturePlugin('syslog', { register: false })
     plugin.load_syslog_ini()
     assert.equal(plugin.cfg.general.name, 'haraka')
     assert.equal(plugin.cfg.general.facility, 'MAIL')

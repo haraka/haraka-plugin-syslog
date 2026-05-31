@@ -1,9 +1,6 @@
-[![Build Status][ci-img]][ci-url]
-[![Code Climate][clim-img]][clim-url]
-
-[![NPM][npm-img]][npm-url]
-
 # haraka-plugin-syslog
+
+[![Test][ci-img]][ci-url] [![Cover][cov-img]][cov-url] [![Qlty][qlty-img]][qlty-url]
 
 Adds syslog support to Haraka. Most log levels in haraka already map to valid
 levels in syslog. Additional log levels in haraka fall under the DEBUG syslog
@@ -77,9 +74,11 @@ Sane defaults are chosen for you.
   if no other log hooks need to run (daemon), then one can make this true.
   This will case the plugin to always call next(OK).
 
+<!-- leave these buried at the bottom of the document -->
+
 [ci-img]: https://github.com/haraka/haraka-plugin-syslog/actions/workflows/ci.yml/badge.svg
 [ci-url]: https://github.com/haraka/haraka-plugin-syslog/actions/workflows/ci.yml
-[clim-img]: https://codeclimate.com/github/haraka/haraka-plugin-syslog/badges/gpa.svg
-[clim-url]: https://codeclimate.com/github/haraka/haraka-plugin-syslog
-[npm-img]: https://nodei.co/npm/haraka-plugin-syslog.png
-[npm-url]: https://www.npmjs.com/package/haraka-plugin-syslog
+[cov-img]: https://codecov.io/github/haraka/haraka-plugin-syslog/coverage.svg
+[cov-url]: https://codecov.io/github/haraka/haraka-plugin-syslog
+[qlty-img]: https://qlty.sh/gh/haraka/projects/haraka-plugin-syslog/maintainability.svg
+[qlty-url]: https://qlty.sh/gh/haraka/projects/haraka-plugin-syslog
