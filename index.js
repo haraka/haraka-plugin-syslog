@@ -2,12 +2,7 @@
 
 const constants = require('haraka-constants')
 const syslog = require('modern-syslog')
-
-// Strip C0 controls (except TAB) and DEL so attacker-controlled SMTP
-// input can't inject newlines or NULs into syslog records (RFC 5424).
-const sanitize = (msg) =>
-  // eslint-disable-next-line no-control-regex
-  String(msg ?? '').replace(/[\x00-\x08\x0A-\x1F\x7F]/g, ' ')
+const utils = require('haraka-utils')
 
 exports.register = function () {
   this.load_syslog_ini()
@@ -49,7 +44,7 @@ exports.load_syslog_ini = function () {
 }
 
 exports.syslog = function (next, logger, log) {
-  const data = sanitize(log.data)
+  const data = utils.sanitize(log.data, { replacement: ' ', keepTab: true })
   switch (log.level.toUpperCase()) {
     case 'INFO':
       syslog.log(syslog.LOG_INFO, data)

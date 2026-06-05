@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Unreleased
 
+### [1.1.2] - 2026-06-04
+
+#### Changed
+
+- refactored against test-fixtures 1.7.0 (#32)
+
+- refactor: use `haraka-utils` sanitize()
 - test: refactored against test-fixtures 1.7.0
 
 ### [1.1.1] - 2026-05-20
@@ -66,3 +73,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 [1.0.7]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.0.7
 [1.1.0]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.1.0
 [1.1.1]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.1.1
+[1.1.2]: https://github.com/haraka/haraka-plugin-syslog/releases/tag/v1.1.2
