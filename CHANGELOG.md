@@ -6,12 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### [1.1.2] - 2026-06-04
 
-#### Changed
-
-- refactored against test-fixtures 1.7.0 (#32)
-
 - refactor: use `haraka-utils` sanitize()
-- test: refactored against test-fixtures 1.7.0
+- test: refactored against test-fixtures 1.7.0 (#32)
 
 ### [1.1.1] - 2026-05-20
 
